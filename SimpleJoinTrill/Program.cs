@@ -32,7 +32,7 @@ namespace SimpleJoinTrill
         {
             public IDisposable Subscribe(IObserver<MyData> observer)
             {
-                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream1/750_thousand_random.csv"))
+                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream1/1_million_random.csv"))
                 //using (var reader = new StreamReader(@"C:\Users\yudis\Documents\university\Summer2021\Code\pysparkPrograms\data\random_stream1\250_thousand_random.csv"))
                 
                 {
@@ -56,7 +56,7 @@ namespace SimpleJoinTrill
         {
             public IDisposable Subscribe(IObserver<MyData> observer)
             {
-                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream2/750_thousand_random2.csv"))
+                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream2/1_million_random2.csv"))
                 //using (var reader = new StreamReader(@"C:\Users\yudis\Documents\university\Summer2021\Code\pysparkPrograms\data\random_stream2\250_thousand_random2.csv"))
                 
                 {
