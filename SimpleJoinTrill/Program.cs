@@ -32,7 +32,7 @@ namespace SimpleJoinTrill
         {
             public IDisposable Subscribe(IObserver<MyData> observer)
             {
-                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream1/1_million_random.csv"))
+                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream1/750_thousand_random.csv"))
                 //using (var reader = new StreamReader(@"C:\Users\yudis\Documents\university\Summer2021\Code\pysparkPrograms\data\random_stream1\250_thousand_random.csv"))
                 
                 {
@@ -56,7 +56,7 @@ namespace SimpleJoinTrill
         {
             public IDisposable Subscribe(IObserver<MyData> observer)
             {
-                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream2/1_million_random2.csv"))
+                using (var reader = new StreamReader(@"/root/SimpleJoinTrill/random_stream2/750_thousand_random2.csv"))
                 //using (var reader = new StreamReader(@"C:\Users\yudis\Documents\university\Summer2021\Code\pysparkPrograms\data\random_stream2\250_thousand_random2.csv"))
                 
                 {
@@ -78,21 +78,17 @@ namespace SimpleJoinTrill
         
         static void Main(string[] args)
         {
+            var sw = new Stopwatch();
+            sw.Start();
 
             var randomObservable1 = new MyObservable1();
             var randomStreamable1 =
-                randomObservable1.ToTemporalStreamable(e => e.Time, e => e.Time + 1)
-                    .Cache();
+                randomObservable1.ToTemporalStreamable(e => e.Time, e => e.Time + 1);
             
             var randomObservable2 = new MyObservable2();
             var randomStreamable2 =
-                randomObservable2.ToTemporalStreamable(e => e.Time, e => e.Time + 1)
-                    .Cache();
-            
+                randomObservable2.ToTemporalStreamable(e => e.Time, e => e.Time + 1);
 
-            var sw = new Stopwatch();
-            sw.Start();
-            
             //int WindowSize = 10;
             var result = randomStreamable1.Join(randomStreamable2,
                 (left, right) => new {left, right}).Where(e => e.left.Payload > e.right.Payload);
