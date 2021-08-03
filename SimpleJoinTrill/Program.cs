@@ -32,7 +32,7 @@ namespace SimpleJoinTrill
         {
             public IDisposable Subscribe(IObserver<MyData> observer)
             {
-                using (var reader = new StreamReader(@"/root/SimpleJoinQuery/data/random_stream1/750_thousand_random.csv"))
+                using (var reader = new StreamReader(@"/root/SimpleJoinQuery/data/random_stream1/1_million_random.csv"))
                 //using (var reader = new StreamReader(@"C:\Users\yudis\Documents\university\Summer2021\Code\SimpleJoinQuery\data\random_stream1\250_thousand_random.csv"))
                 
                 {
@@ -40,7 +40,6 @@ namespace SimpleJoinTrill
                   while (!reader.EndOfStream)
                   {
                       var line = reader.ReadLine();
-                      //Console.WriteLine(line);
                       var values = line.Split(',');
                       var data = new MyData(long.Parse(values[0]), int.Parse(values[1]));
                       observer.OnNext(data);
@@ -56,7 +55,7 @@ namespace SimpleJoinTrill
         {
             public IDisposable Subscribe(IObserver<MyData> observer)
             {
-                using (var reader = new StreamReader(@"/root/SimpleJoinQuery/data/random_stream2/750_thousand_random2.csv"))
+                using (var reader = new StreamReader(@"/root/SimpleJoinQuery/data/random_stream2/1_million_random2.csv"))
                 //using (var reader = new StreamReader(@"C:\Users\yudis\Documents\university\Summer2021\Code\SimpleJoinQuery\data\random_stream2\250_thousand_random2.csv"))
                 
                 {
@@ -64,7 +63,6 @@ namespace SimpleJoinTrill
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
-                        //Console.WriteLine(line);
                         var values = line.Split(',');
                         var data = new MyData(long.Parse(values[0]), int.Parse(values[1]));
                         observer.OnNext(data);
@@ -91,7 +89,7 @@ namespace SimpleJoinTrill
 
             //int WindowSize = 10;
             var result = randomStreamable1.Join(randomStreamable2,
-                (left, right) => new {left, right}).Where(e => e.left.Payload > e.right.Payload);
+                (left, right) => new {left, right});
 
             //result.ToStreamEventObservable()
             //    .ForEachAsync(e => Console.WriteLine(e.ToString()));
